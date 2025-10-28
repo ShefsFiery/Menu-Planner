@@ -1,6 +1,7 @@
 {
   "name": "menu-planner-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "Menu Planner API for Shef's Fiery Kitchen",
   "main": "index.html",
   "scripts": {
