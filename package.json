@@ -1,0 +1,12 @@
+{
+  "name": "menu-planner-api",
+  "version": "1.0.0",
+  "description": "Menu Planner API for Shef's Fiery Kitchen",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
