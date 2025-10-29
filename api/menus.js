@@ -1,65 +1,37 @@
-// This file should be placed at: /api/menus.js in your Vercel project
+// This file should be placed at: api/menus.js in your Vercel project
 
 export default async function handler(req, res) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  try {
-    const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
-    const AIRTABLE_BASE_ID = 'appPgk1uhCYcUbHIg';
-    const MENUS_TABLE_ID = 'tbl9YPagJD8v4Mj4R';
-
-    if (!AIRTABLE_API_KEY) {
-      throw new Error('AIRTABLE_API_KEY not configured');
-    }
-
-    const response = await fetch(
-      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${MENUS_TABLE_ID}?maxRecords=20&sort[0][field]=Week Starting&sort[0][direction]=desc`,
-      {
-        headers: {
-          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Airtable API error: ${response.status}`);
-    }
-
-    const data = await response.json();
+    // Enable CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     
-    const menus = data.records.map(record => {
-      const notes = record.fields['Notes'] || '';
-      
-      // Extract recipe IDs from notes
-      const recipeIdsMatch = notes.match(/Recipe IDs: (.+?)(?:\n|$)/);
-      const recipeIds = recipeIdsMatch 
-        ? recipeIdsMatch[1].split(',').map(id => id.trim())
-        : [];
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    
+    if (req.method !== 'GET') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
 
-      return {
-        id: record.id,
-        startDate: record.fields['Week Starting'] || '',
-        status: record.fields['Status'] || '',
-        notes: notes,
-        recipeIds: recipeIds
-      };
-    });
+    try {
+        const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+        const AIRTABLE_BASE_ID = 'appPgk1uhCYcUbHIg';
+        const MENUS_TABLE_ID = 'tblDPagJpagMNJSj';
 
-    res.status(200).json({ menus });
-  } catch (error) {
-    console.error('Error fetching menus:', error);
-    res.status(500).json({ error: error.message });
-  }
+        const response = await fetch(
+            `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${MENUS_TABLE_ID}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+                },
+            }
+        );
+
+        const data = await response.json();
+        return res.status(200).json(data);
+    } catch (error) {
+        console.error('Error fetching menus:', error);
+        return res.status(500).json({ error: 'Failed to fetch menus' });
+    }
 }
