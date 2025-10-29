@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     try {
         const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
         const AIRTABLE_BASE_ID = 'appPgk1uhCYcUbHIg';
-        const RECIPES_TABLE_ID = 'tbl19pPgapJwaNJ8j';
+        const RECIPES_TABLE_ID = 'tblUK3paGpKNupW8l';
 
         const response = await fetch(
             `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${RECIPES_TABLE_ID}`,
