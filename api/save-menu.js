@@ -1,7 +1,4 @@
-
-
 export default async function handler(req, res) {
-    // Enable CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -17,7 +14,7 @@ export default async function handler(req, res) {
     try {
         const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
         const AIRTABLE_BASE_ID = 'appPgk1uhCYcUbHIg';
-        const MENUS_TABLE_ID = 'tblDPagJpagMNJSj';
+        const MENUS_TABLE_ID = 'tbl9YPagJD8v4Mj4R';
 
         const { name, startDate, endDate, recipes } = req.body;
 
@@ -31,10 +28,9 @@ export default async function handler(req, res) {
                 },
                 body: JSON.stringify({
                     fields: {
-                        Name: name,
-                        'Start Date': startDate,
-                        'End Date': endDate,
-                        Recipes: recipes,
+                        'Week Starting': startDate,
+                        Status: 'Planning',
+                        Notes: name,
                     },
                 }),
             }
