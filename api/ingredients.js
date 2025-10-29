@@ -1,6 +1,4 @@
-
 export default async function handler(req, res) {
-    // Enable CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -16,7 +14,7 @@ export default async function handler(req, res) {
     try {
         const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
         const AIRTABLE_BASE_ID = 'appPgk1uhCYcUbHIg';
-        const INGREDIENTS_TABLE_ID = 'tblFTGZhO7VcUcVSI';
+        const INGREDIENTS_TABLE_ID = 'tblillbifFHNSGvI8';
 
         const response = await fetch(
             `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${INGREDIENTS_TABLE_ID}`,
