@@ -1,4 +1,4 @@
-// This file should be placed at: api/save-menu.js in your Vercel project
+
 
 export default async function handler(req, res) {
     // Enable CORS
